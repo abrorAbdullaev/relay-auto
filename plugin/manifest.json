@@ -1,0 +1,16 @@
+{
+  "name": "Relay Auto",
+  "version": "3.0.0",
+  "description": "Additional filters for relay auto, and automated load searching",
+  "manifest_version": 2,
+  "permissions": ["storage", "activeTab", "tabs", "https://relay.amazon.com/"],
+  "browser_action": {
+    "default_popup": "./assets/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://relay.amazon.com/tours/loadboard*"],
+      "js": ["./assets/content.js"]
+    }
+  ]
+}
