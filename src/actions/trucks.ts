@@ -1,5 +1,5 @@
-import { ACTION_TYPE } from "../constants/action-types";
-import v4 from "uuid/v4";
+import v4 from 'uuid/v4';
+import { ACTION_TYPE } from '../constants';
 
 export const addTruck = (name: string) => ({
   type: ACTION_TYPE.ADD_TRUCK,

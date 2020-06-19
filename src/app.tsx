@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import AppDataProvider from "./components/app-data-provider";
+import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
 import Storage from './utils/storage';
-import { AppData } from "./models/app-data";
+import { AppData } from './models/app-data';
 import { ENV_DEVELOPMENT } from './constants';
 
 const storage: Storage = process.env.NODE_ENV === ENV_DEVELOPMENT
@@ -10,8 +10,8 @@ const storage: Storage = process.env.NODE_ENV === ENV_DEVELOPMENT
   : new Storage();
 
 const App = () => {
-  const [ isDataLoaded, setDataLoaded ] = useState<boolean>(false);
-  const [ data, setData ] = useState<AppData>({
+  const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
+  const [data, setData] = useState<AppData>({
     trucks: {},
   });
 
@@ -24,21 +24,22 @@ const App = () => {
 
     setData({
       ...data,
-      trucks: trucks || {}
+      trucks: trucks || {},
     });
 
     setDataLoaded(true);
   };
 
-  useEffect( (): void => {
+  useEffect((): void => {
     fetchAppData().then();
   }, []);
 
   return (
-    isDataLoaded ?
-      (
+    isDataLoaded
+      ? (
         <AppDataProvider storage={storage} data={data}>
-          Hello World!
+          <h1>Hello World!</h1>
+          <button id="customTest" type="button">Custom Test</button>
         </AppDataProvider>
       ) : <span>Loading</span>
   );

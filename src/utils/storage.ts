@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
+
+
 export default class Storage {
-  storageDataKey: string = "relayAuto";
+  storageDataKey: string = 'relayAuto';
 
   public saveData(key: string, value: any) {
     chrome.storage.sync.set({ [`${this.storageDataKey}.${key}`]: value });

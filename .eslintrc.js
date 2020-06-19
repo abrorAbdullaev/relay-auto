@@ -34,6 +34,7 @@ module.exports = {
         "import/extensions": "off",
         "no-unused-vars": "off",
         "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
         "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "jsx-a11y/label-has-associated-control": [
             "error",

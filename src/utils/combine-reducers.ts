@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 export function combineReducers (reducers: any = {}) {
   const reducerKeys = Object.keys(reducers);
   return function combination(state: any = { }, action: string) {
