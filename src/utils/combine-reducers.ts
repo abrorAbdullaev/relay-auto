@@ -1,4 +1,4 @@
-/*eslint-disable */
+/* eslint-disable */
 
 export function combineReducers (reducers: any = {}) {
   const reducerKeys = Object.keys(reducers);
