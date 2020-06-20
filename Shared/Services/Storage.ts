@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
+// @ts-nocheck
 import { relayStorageNameConst } from "../Constants";
 
-export default class Storage {
+export default class StorageService {
   storageDataKey: string = relayStorageNameConst;
 
   public saveData(key: string, value: any) {
