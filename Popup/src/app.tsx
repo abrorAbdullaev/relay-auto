@@ -7,7 +7,7 @@ import { ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';
 import initialData from './mock/initial-data';
 
-const storage: Storage = process.env.NODE_ENV === ENV_DEVELOPMENT
+const storage: any = process.env.NODE_ENV === ENV_DEVELOPMENT
   ? new LocalStorage() // Is used to imitate Chrome Extensions Storage API during dev process
   : new Storage();
 
