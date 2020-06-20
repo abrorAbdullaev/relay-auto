@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  introduceButton();
+})
+
+function introduceButton() {
   let customTest = document.getElementById('customTest');
+
+  if (!customTest) {
+    setTimeout(introduceButton, 250);
+    return;
+  }
 
   customTest.onclick = () => {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -7,5 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(response.list);
       });
     });
-  }
-})
+  };
+};

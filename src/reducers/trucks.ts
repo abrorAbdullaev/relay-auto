@@ -21,6 +21,8 @@ export const trucksReducer = (state: Trucks, action: any) => {
       };
     case ACTION_TYPE.REMOVE_TRUCK: {
       const trucks = { ...state };
+      console.log(trucks);
+      console.log(action.id);
       delete trucks[action.id];
       return { ...trucks };
     }

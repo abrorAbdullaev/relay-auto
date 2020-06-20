@@ -4,6 +4,8 @@ import LocalStorage from './utils/localStorage';
 import Storage from './utils/storage';
 import { AppData } from './models/app-data';
 import { ENV_DEVELOPMENT } from './constants';
+import AppContent from './components/app-content';
+import initialData from './mock/initial-data';
 
 const storage: Storage = process.env.NODE_ENV === ENV_DEVELOPMENT
   ? new LocalStorage() // Is used to imitate Chrome Extensions Storage API during dev process
@@ -30,7 +32,12 @@ const App = () => {
     setDataLoaded(true);
   };
 
+  const mockData = () => {
+    storage.saveData('trucks', initialData.trucks);
+  }
+
   useEffect((): void => {
+    // mockData()
     fetchAppData().then();
   }, []);
 
@@ -38,8 +45,7 @@ const App = () => {
     isDataLoaded
       ? (
         <AppDataProvider storage={storage} data={data}>
-          <h1>Hello World!</h1>
-          <button id="customTest" type="button">Custom Test</button>
+          <AppContent/>
         </AppDataProvider>
       ) : <span>Loading</span>
   );
