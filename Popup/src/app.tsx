@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
-import Storage from './utils/storage';
+import Storage from '../../Shared/Services/Storage';
 import { AppData } from './models/app-data';
 import { ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';

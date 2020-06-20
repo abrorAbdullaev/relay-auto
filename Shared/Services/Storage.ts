@@ -1,18 +1,18 @@
 /* eslint-disable no-undef */
-
+import { relayStorageNameConst } from "../Constants";
 
 export default class Storage {
-  storageDataKey: string = 'relayAuto';
+  storageDataKey: string = relayStorageNameConst;
 
   public saveData(key: string, value: any) {
-    chrome.storage.sync.set({ [`${this.storageDataKey}.${key}`]: value });
+    chrome.storage.local.set({ [`${this.storageDataKey}.${key}`]: value });
   }
 
   public getData(key: string): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
         const storageKey = `${this.storageDataKey}.${key}`;
-        chrome.storage.sync.get([storageKey], (result) => resolve(result[storageKey]));
+        chrome.storage.local.get([storageKey], (result) => resolve(result[storageKey]));
       } catch (e) {
         reject(e);
       }
@@ -23,7 +23,7 @@ export default class Storage {
     return new Promise((resolve, reject) => {
       try {
         const storageKeys = keys.map((k) => `${this.storageDataKey}.${k}`);
-        chrome.storage.sync.get([...storageKeys], (result) => {
+        chrome.storage.local.get([...storageKeys], (result) => {
           const res: any = keys.reduce(
             (acc, curr) => ({
               ...acc,
