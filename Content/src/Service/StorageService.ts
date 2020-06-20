@@ -1,25 +1,25 @@
-import { StorageServiceInterface, relayStorageNameConst } from '../../../Shared';
+import { StorageServiceInterface } from '../../../Shared';
 import { defaultStorage } from './';
 
 export class StorageService implements StorageServiceInterface {
-  storageName = relayStorageNameConst;
   nameSpace = 'local';
 
   get(key: string): Promise<any>  {
     return new Promise((resolve, reject) => {
       try {
-        const storageKey = `${this.storageName}.${key}`;
-        chrome.storage[this.nameSpace].get([storageKey], (result) => resolve(result[storageKey]));
+        chrome.storage[this.nameSpace].get([`${key}`], (result) => {
+          resolve(result[`${key}`])
+        });
       } catch (e) {
         reject(e);
       }
     });
   }
 
-  set(key: string, value: any): Promise<boolean> {
+  set(key: string | string[], value: any): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage[this.nameSpace].set({ [`${this.storageName}.${key}`]: value }, () => resolve(true));
+        chrome.storage[this.nameSpace].set({[`${key}`]: value }, () => resolve(true));
       } catch (e) {
         reject(e);
       }
@@ -36,36 +36,29 @@ export class StorageService implements StorageServiceInterface {
   addListener(listener: (val: any) => void, key: string, value?: any) {
     chrome.storage.onChanged.addListener((changes: object, areaName: string) => {
       if (
-        !changes[`${this.storageName}.${key}`] 
-        || value && value !== changes[`${this.storageName}.${key}`].newValue
+        !changes[`${key}`] 
+        || value && value !== changes[`${key}`].newValue
         || areaName !== this.nameSpace) {
         return;
       }
 
-      listener(changes[`${this.storageName}.${key}`]);
-    });
-  }
-
-  isInitialized(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      try {
-        chrome.storage[this.nameSpace].get([this.storageName], (result) => {
-          console.log('Result: ', result);
-          resolve(!!result)
-        });
-      } catch (e) {
-        reject(e);
-      }
+      listener(changes[`${key}`]);
     });
   }
 
   initialize(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage[this.nameSpace].get([this.storageName], (result) => {
-          Object.keys(result).length === 0 && result.constructor === Object 
-            ? chrome.storage[this.nameSpace].set({ [`${this.storageName}`]: defaultStorage }, () => resolve(true))
-            : resolve(true);
+        this.get('isInitialized').then((isInitialized) => {
+          if(!isInitialized) {
+            Promise.all(Object.entries(defaultStorage).map(([keyName, keyValue]) =>
+              this.set(`${keyName}`, defaultStorage[keyValue]))).then((allTrue) => {
+                allTrue.every(Boolean)
+                  ? resolve(true)
+                  : reject('Some values in storage are not set successfully!');
+              }
+            );
+          }
         });
       } catch (e) {
         reject(e);
