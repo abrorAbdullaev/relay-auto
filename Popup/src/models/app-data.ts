@@ -1,5 +1,6 @@
 import { Trucks } from './truck';
 
 export interface AppData {
-  trucks: Trucks
+  trucks: Trucks,
+  isLoggedIn: boolean
 }

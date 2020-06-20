@@ -8,5 +8,6 @@ export default {
       id: "be1e1597-60c8-4e45-90fc-a781f7f43f9a",
       name: "Truck 2"
     }
-  }
+  },
+  isLoggedIn: false,
 };
