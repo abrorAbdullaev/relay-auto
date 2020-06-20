@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from "styled-components";
-import TrucksWrapper from "./trucks/trucks-wrapper";
+import TruckListWrapper from "./trucks/truck-list-wrapper";
 import { AppDataContext } from "../store/app-data-context";
 import FetchButton from "./fetch-button";
 import Box from "@material-ui/core/Box";
@@ -15,7 +15,7 @@ const AppContent = () => {
       alignItems="center"
     >
       <FetchButton/>
-      <TrucksWrapper
+      <TruckListWrapper
         trucks={trucks}
         onDispatch={dispatch}
       />

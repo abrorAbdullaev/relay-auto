@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import ShowTrucksListButton from "./show-trucks-list-button";
-import TrucksList from "./trucks-list";
+import ShowTruckListButton from "./show-truck-list-button";
+import TruckList from "./truck-list";
 import { Trucks } from "../../models/truck";
 import {addTruck, editTruck, removeTruck} from "../../actions/trucks";
 import styled from "styled-components";
 
-const TrucksWrapper = (props: PropTypes) => {
+const TruckListWrapper = (props: PropTypes) => {
   const { trucks, onDispatch } = props;
   const [ isTrucksListShown, toggleTrucksListVisibility ] = useState<boolean>(false);
 
@@ -15,14 +15,14 @@ const TrucksWrapper = (props: PropTypes) => {
 
   return (
     <Wrapper>
-      <ShowTrucksListButton
+      <ShowTruckListButton
         isTrucksListShown={isTrucksListShown}
         onTrucksListOpen={() => toggleTrucksListVisibility(!isTrucksListShown)}
       />
       {
         isTrucksListShown
           ? (
-            <TrucksList
+            <TruckList
               trucks={trucks}
               onAddTruck={onAddTruck}
               onEditTruck={onEditTruck}
@@ -49,4 +49,4 @@ interface PropTypes {
   onDispatch: (...args: any) => any
 }
 
-export default TrucksWrapper;
+export default TruckListWrapper;

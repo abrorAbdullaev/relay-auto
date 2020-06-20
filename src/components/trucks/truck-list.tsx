@@ -2,11 +2,11 @@ import React from 'react';
 import {Box, Divider, List, Paper} from "@material-ui/core";
 import styled from "styled-components";
 import { Truck, Trucks } from "../../models/truck";
-import TrucksListItem from "./trucks-list-item";
+import TruckListItem from "./truck-list-item";
 import NoTrucks from "./no-trucks";
 import AddTruckButton from "./add-truck-button";
 
-const TrucksList = (props: PropTypes) => {
+const TruckList = (props: PropTypes) => {
   const { trucks, onAddTruck, onEditTruck, onRemoveTruck } = props;
   const mappedTrucks: Truck[] = Object.keys(trucks).map(id => trucks[id]);
 
@@ -27,7 +27,7 @@ const TrucksList = (props: PropTypes) => {
           <ListBody>
             {
               mappedTrucks.map((truck, index) => (
-                <TrucksListItem
+                <TruckListItem
                   key={index}
                   truck={truck}
                   onEditTruck={(name: string) => onEditTruck(truck.id, name)}
@@ -67,4 +67,4 @@ interface PropTypes {
   onRemoveTruck: (id: string) => any
 }
 
-export default TrucksList;
+export default TruckList;

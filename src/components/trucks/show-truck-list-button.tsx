@@ -3,7 +3,7 @@ import { Fab } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-const ShowTrucksListButton = (props: PropTypes) => {
+const ShowTruckListButton = (props: PropTypes) => {
   const { isTrucksListShown, onTrucksListOpen } = props;
 
   return (
@@ -29,4 +29,4 @@ interface PropTypes {
   onTrucksListOpen: () => void
 }
 
-export default ShowTrucksListButton;
+export default ShowTruckListButton;

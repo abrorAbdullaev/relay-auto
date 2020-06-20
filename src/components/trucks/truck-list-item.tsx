@@ -7,7 +7,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import styled from "styled-components";
 
-const TrucksListItem = (props: PropTypes) => {
+const TruckListItem = (props: PropTypes) => {
   const { truck, onEditTruck, onRemoveTruck } = props;
   const [ isEditing, setEditingMode ] = useState<boolean>(false);
   const [ inputValue, setInputValue ] = useState<string>(truck.name || "");
@@ -79,4 +79,4 @@ interface PropTypes {
   onRemoveTruck: () => any
 }
 
-export default TrucksListItem;
+export default TruckListItem;
