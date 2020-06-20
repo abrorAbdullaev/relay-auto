@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+// @ts-ignore
 import { relayStorageNameConst } from "../Shared/Constants";
 
 export default class Storage {
