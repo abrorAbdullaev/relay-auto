@@ -1,4 +1,4 @@
-import { StorageService } from './services';
+import { StorageService } from './Service';
 
 export class App {
   private storageService: StorageService;
@@ -7,12 +7,13 @@ export class App {
     this.storageService = new StorageService();
   }
 
-  init(): void {
-    Promise.all([
-      this.storageService.initIsSearching(),
-    ]).then(() => {
-      console.log('done');
-    });
+  async init() {
+    const isInitialized = await this.storageService.isInitialized();
+    !isInitialized && await this.storageService.initialize();
+
+    this.storageService.addListener((value) => {
+      // TODO Implement Search Features
+    }, 'isSearching', true);
   }
  
   // registerEvents(): void {
