@@ -15,29 +15,34 @@ const App = () => {
   const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
   const [data, setData] = useState<AppData>({
     trucks: {},
+    isLoggedIn: false
   });
 
   const fetchAppData = async (): Promise<void> => {
     const {
       trucks,
+      isLoggedIn,
     } = await storage.getDataObject([
       'trucks',
+      'isLoggedIn'
     ]);
 
     setData({
       ...data,
       trucks: trucks || {},
+      isLoggedIn,
     });
 
     setDataLoaded(true);
   };
 
   const mockData = () => {
-    storage.saveData('trucks', initialData.trucks);
+    storage.set('trucks', initialData.trucks);
+    storage.set('isLoggedIn', initialData.isLoggedIn);
   }
 
   useEffect((): void => {
-    // mockData()
+    mockData();
     fetchAppData().then();
   }, []);
 
