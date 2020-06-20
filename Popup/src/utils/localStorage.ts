@@ -3,11 +3,11 @@ import { CHROME_STORAGE_KEY } from '../constants';
 export default class Storage {
   storageDataKey: string = CHROME_STORAGE_KEY;
 
-  public saveData(key: string, value: any) {
+  public set(key: string, value: any) {
     localStorage.setItem(`${this.storageDataKey}.${key}`, JSON.stringify(value));
   }
 
-  public getData(key: string): Promise<any> {
+  public get(key: string): Promise<any> {
     return new Promise((resolve) => {
       const storageKey = `${this.storageDataKey}.${key}`;
       return resolve(JSON.parse(localStorage.getItem(storageKey) as string));

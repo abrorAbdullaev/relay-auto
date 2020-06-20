@@ -1,40 +1,42 @@
 /* eslint-disable no-undef */
 // @ts-nocheck
 import { relayStorageNameConst } from "../Constants";
+import {StorageServiceInterface} from "./StorageService";
 
-export default class StorageService {
-  storageDataKey: string = relayStorageNameConst;
+export class Storage implements StorageServiceInterface {
+  storageName = relayStorageNameConst;
+  nameSpace = 'local';
 
-  public saveData(key: string, value: any) {
-    chrome.storage.local.set({ [`${this.storageDataKey}.${key}`]: value });
-  }
-
-  public getData(key: string): Promise<any> {
+  get(key: string): Promise<any>  {
     return new Promise((resolve, reject) => {
       try {
-        const storageKey = `${this.storageDataKey}.${key}`;
-        chrome.storage.local.get([storageKey], (result) => resolve(result[storageKey]));
+        const storageKey = `${this.storageName}.${key}`;
+        chrome.storage[this.nameSpace].get([storageKey], (result) => resolve(result[storageKey]));
+      } catch (e) {
+        reject(e);
+      }zz
+    });
+  }
+
+  set(key: string, value: any): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      try {
+        chrome.storage.local.set({ [`${this.storageName}.${key}`]: value });
       } catch (e) {
         reject(e);
       }
     });
   }
 
-  public getDataObject(keys: string[] = []): Promise<any> {
-    return new Promise((resolve, reject) => {
-      try {
-        const storageKeys = keys.map((k) => `${this.storageDataKey}.${k}`);
-        chrome.storage.local.get([...storageKeys], (result) => {
-          const res: any = keys.reduce(
-            (acc, curr) => ({
-              ...acc,
-              [curr]: result[`${this.storageDataKey}.${curr}`],
-            }), {},
-          );
-          return resolve(res);
-        });
-      } catch (e) {
-        reject(e);
+  addListener(listener: (val: any) => void, key: string, value?:string) {
+    chrome.storage.onChanged.addListener((changes: object, areaName: string) => {
+      console.log(changes);
+      if (changes[key] && areaName === this.nameSpace) {
+        if (value && changes[key] === value) {
+          listener(changes[key]);
+        } else {
+          listener(changes[key]);
+        }
       }
     });
   }
