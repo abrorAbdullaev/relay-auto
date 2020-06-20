@@ -1,43 +1,69 @@
 /* eslint-disable no-undef */
-// @ts-ignore
-import { relayStorageNameConst } from "../Shared/Constants";
 import { StorageServiceInterface } from "../Shared/Services";
+import { defaultStorage } from "../constants";
 
-export default class Storage implements StorageServiceInterface{
-  storageName = relayStorageNameConst;
+export class StorageService implements StorageServiceInterface {
   nameSpace = 'local';
 
   get(key: string): Promise<any>  {
     return new Promise((resolve, reject) => {
       try {
-        const storageKey = `${this.storageName}.${key}`;
         // @ts-ignore
-        chrome.storage[this.nameSpace].get([storageKey], (result) => resolve(result[storageKey]));
+        chrome.storage[this.nameSpace].get([`${key}`], (result) => {
+          resolve(result[`${key}`])
+        });
       } catch (e) {
         reject(e);
       }
     });
   }
 
-  set(key: string, value: any): Promise<boolean> {
+  set(key: string | string[], value: any): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage.local.set({ [`${this.storageName}.${key}`]: value });
+        chrome.storage[`${this.nameSpace}`].set({[`${key}`]: value }, () => resolve(true));
       } catch (e) {
         reject(e);
       }
     });
   }
 
-  addListener(listener: (val: any) => void, key: string, value?:string) {
-    chrome.storage.onChanged.addListener((changes: any, areaName: string) => {
-      console.log(changes);
-      if (changes[key] && areaName === this.nameSpace) {
-        if (value && changes[key] === value) {
-          listener(changes[key]);
-        } else {
-          listener(changes[key]);
-        }
+  /**
+   * Adds the listener to the storage
+   *
+   * @param listener The method to be executed, accepts the new value of the changed parameter
+   * @param key The key of the storage to be observed
+   * @param value Optional, the value on which the listener should trigger
+   */
+  addListener(listener: (val: any) => void, key: string, value?: any) {
+    chrome.storage.onChanged.addListener((changes: object, areaName: string) => {
+      if (
+        !changes[`${key}`]
+        || value && value !== changes[`${key}`].newValue
+        || areaName !== this.nameSpace) {
+        return;
+      }
+
+      listener(changes[`${key}`]);
+    });
+  }
+
+  initialize(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.get('isInitialized').then((isInitialized) => {
+          if(!isInitialized) {
+            Promise.all(Object.entries(defaultStorage).map(([keyName, keyValue]) =>
+              this.set(`${keyName}`, defaultStorage[keyValue]))).then((allTrue) => {
+                allTrue.every(Boolean)
+                  ? resolve(true)
+                  : reject('Some values in storage are not set successfully!');
+              }
+            );
+          }
+        });
+      } catch (e) {
+        reject(e);
       }
     });
   }

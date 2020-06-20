@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
-import Storage from './utils/storage';
+import { StorageService } from './utils/storage';
 import { AppData } from './models/app-data';
 import { ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';
@@ -9,7 +9,7 @@ import initialData from './mock/initial-data';
 
 const storage: any = process.env.NODE_ENV === ENV_DEVELOPMENT
   ? new LocalStorage() // Is used to imitate Chrome Extensions Storage API during dev process
-  : new Storage();
+  : new StorageService();
 
 const App = () => {
   const [isDataLoaded, setDataLoaded] = useState<boolean>(false);

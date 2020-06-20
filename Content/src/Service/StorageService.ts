@@ -1,5 +1,5 @@
 import { StorageServiceInterface } from '../../../Shared';
-import { defaultStorage } from './';
+import {defaultStorage} from "./index";
 
 export class StorageService implements StorageServiceInterface {
   nameSpace = 'local';

@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { AppDataContext } from '../store/app-data-context';
 import { AppData } from '../models/app-data';
 import { getRootReducer } from '../reducers';
-import Storage from '../utils/storage';
+import { StorageService } from '../utils/storage';
 
 const AppDataProvider = ({ data, storage, children }: PropTypes) => {
   const [state, dispatch] = useReducer(getRootReducer(storage), { ...data });
@@ -16,7 +16,7 @@ const AppDataProvider = ({ data, storage, children }: PropTypes) => {
 
 interface PropTypes {
   data: AppData
-  storage: Storage
+  storage: StorageService
   children: JSX.Element | JSX.Element[]
 }
 
