@@ -1,18 +1,35 @@
-import { StorageService } from './services';
+import { StorageService } from './Service';
 
 export class App {
   private storageService: StorageService;
+  private interval: number = 0;
 
   constructor() {
     this.storageService = new StorageService();
   }
 
-  init(): void {
-    Promise.all([
-      this.storageService.initIsSearching(),
-    ]).then(() => {
-      console.log('done');
-    });
+  async init() {
+    await this.storageService.initialize();
+
+    this.storageService.addListener(async (value) => {
+      const refreshRate = await this.storageService.get('refreshRate');
+
+      this.interval = setInterval(() => {
+        console.log('Next Time Check');
+      }, refreshRate);
+    }, 'isSearching', true);
+
+    this.storageService.addListener((value) => {
+      clearInterval(this.interval);
+    }, 'isSearching', false);
+
+    // setTimeout(() => {
+    //   this.storageService.set('isSearching', true).then(() => {
+    //     setTimeout(() => {
+    //       this.storageService.set('isSearching', false);
+    //     }, 2000);
+    //   })
+    // }, 2000);
   }
  
   // registerEvents(): void {
