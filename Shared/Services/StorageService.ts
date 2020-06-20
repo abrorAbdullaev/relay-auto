@@ -4,5 +4,5 @@ export interface StorageServiceInterface {
 
   get(key: string): Promise<any>;
   set(key: string, value: any): Promise<boolean>;
-  addListener(listener: () => Promise<any>, key: string, value?: string): void;
+  addListener(listener: Function, key: string, value?: string): void;
 }
