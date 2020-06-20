@@ -1,0 +1,1 @@
+export const relayStorageNameConst = 'relayStorage';

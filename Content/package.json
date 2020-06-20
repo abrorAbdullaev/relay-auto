@@ -1,0 +1,19 @@
+{
+  "name": "relay-background",
+  "version": "3.0.0",
+  "description": "Background app for relay auto",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.9.5",
+    "ts-loader": "^7.0.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.116"
+  }
+}
