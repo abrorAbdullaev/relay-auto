@@ -42,7 +42,7 @@ const App = () => {
   }
 
   useEffect((): void => {
-    mockData();
+    // mockData();
     fetchAppData().then();
   }, []);
 
