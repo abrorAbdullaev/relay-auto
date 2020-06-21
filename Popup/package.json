@@ -30,7 +30,7 @@
   "scripts": {
     "start": "yarn start-no-cache",
     "start-no-cache": "react-scripts start --no-cache",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build && node after-build.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint 'src/**/*.ts{,x}'",
@@ -54,6 +54,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
+    "chalk": "^4.1.0",
+    "ncp": "^2.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.0",
