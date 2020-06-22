@@ -1,15 +1,11 @@
-import { CHROME_STORAGE_KEY } from '../constants';
-
 export default class Storage {
-  storageDataKey: string = CHROME_STORAGE_KEY;
-
   public set(key: string, value: any) {
-    localStorage.setItem(`${this.storageDataKey}.${key}`, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   public get(key: string): Promise<any> {
     return new Promise((resolve) => {
-      const storageKey = `${this.storageDataKey}.${key}`;
+      const storageKey = key;
       return resolve(JSON.parse(localStorage.getItem(storageKey) as string));
     });
   }
@@ -19,9 +15,10 @@ export default class Storage {
       const res: any = keys.reduce(
         (acc, curr) => ({
           ...acc,
-          [curr]: JSON.parse(localStorage.getItem(`${this.storageDataKey}.${curr}`) as string),
+          [curr]: JSON.parse(localStorage.getItem(curr) as string),
         }), {},
       );
+
       return resolve(res);
     });
   }

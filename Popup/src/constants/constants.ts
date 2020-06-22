@@ -11,3 +11,9 @@ export const defaultStorage: Storage = {
   isLoggedIn: true,
   trucks: [],
 }
+
+export const CHROME_DATA_KEYS = [
+  'trucks',
+  'isLoggedIn',
+  'isSearching',
+]

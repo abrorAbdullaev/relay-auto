@@ -7,7 +7,7 @@ import Box from "@material-ui/core/Box";
 import Login from "./login/login";
 
 const AppContent = () => {
-  const { trucks, isLoggedIn, dispatch } = useContext(AppDataContext);
+  const { trucks, isLoggedIn, isSearching, dispatch } = useContext(AppDataContext);
 
   return (
     isLoggedIn ? (
@@ -16,7 +16,10 @@ const AppContent = () => {
         flexDirection="column"
         alignItems="center"
       >
-        <FetchButton/>
+        <FetchButton
+          isSearching={isSearching}
+          onDispatch={dispatch}
+        />
         <TruckListWrapper
           trucks={trucks}
           onDispatch={dispatch}

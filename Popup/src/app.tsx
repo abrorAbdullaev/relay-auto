@@ -3,7 +3,7 @@ import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
 import { StorageService } from './utils/storage';
 import { AppData } from './models/app-data';
-import { ENV_DEVELOPMENT } from './constants';
+import {CHROME_DATA_KEYS, ENV_DEVELOPMENT} from './constants';
 import AppContent from './components/app-content';
 import initialData from './mock/initial-data';
 
@@ -15,22 +15,24 @@ const App = () => {
   const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
   const [data, setData] = useState<AppData>({
     trucks: {},
-    isLoggedIn: false
+    isLoggedIn: false,
+    isSearching: false,
   });
 
   const fetchAppData = async (): Promise<void> => {
     const {
       trucks,
       isLoggedIn,
+      isSearching,
     } = await storage.getDataObject([
-      'trucks',
-      'isLoggedIn'
+      ...CHROME_DATA_KEYS
     ]);
 
     setData({
       ...data,
       trucks: trucks || {},
       isLoggedIn,
+      isSearching,
     });
 
     setDataLoaded(true);
@@ -39,6 +41,7 @@ const App = () => {
   const mockData = () => {
     storage.set('trucks', initialData.trucks);
     storage.set('isLoggedIn', initialData.isLoggedIn);
+    storage.set('isSearching', initialData.isSearching);
   }
 
   useEffect((): void => {

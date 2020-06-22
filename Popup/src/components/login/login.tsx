@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import Greetings from "./greetings";
 import Form from "./form";
-import { updateLoginState } from "../../actions/isLoggedIn";
+import { updateLoginState } from "../../actions/config";
 import { Auth } from "../../services";
 
 const Login = (props: PropTypes) => {

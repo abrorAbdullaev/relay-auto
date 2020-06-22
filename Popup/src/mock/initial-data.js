@@ -9,5 +9,6 @@ export default {
       name: "Truck 2"
     }
   },
-  isLoggedIn: false,
+  isLoggedIn: true,
+  isSearching: false
 };
