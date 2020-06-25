@@ -11,7 +11,7 @@ export class App extends AbstractApp {
     this.storageService.addListener(() => this.stopSearching(), 'isSearching', false);
 
     // Test Run
-    this.startTesting();
+    // this.startTesting();
   }
 
   /**
