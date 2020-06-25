@@ -20,7 +20,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    path: path.resolve(__dirname, '../plugin/'),
+    path: path.resolve(__dirname, '../plugin/content/'),
     filename: 'content.js',
   },
 };

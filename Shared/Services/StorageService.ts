@@ -1,7 +1,9 @@
+import { Storage } from "../Models";
+
 export interface StorageServiceInterface {
-  nameSpace: string;
-  get(key: string): Promise<any>;
-  set(key: string, value: any): Promise<boolean>;
+  nameSpace: "local" | "sync";
+  get(key: keyof Storage): Promise<any>;
+  set(key: keyof Storage, value: any): Promise<boolean>;
 
   /**
    * Adds the listener to the storage

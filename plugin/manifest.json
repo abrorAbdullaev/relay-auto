@@ -8,7 +8,7 @@
     {
       "matches": ["https://relay.amazon.com/tours/loadboard*"],
       "run_at": "document_start",
-      "js": ["./content.js"]
+      "js": ["./content/content.js"]
     }
   ],
   "browser_action": {

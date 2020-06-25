@@ -1,6 +1,6 @@
 import { RelayResponse } from "../Models";
 
-export function getLoads(): Promise<{loads: RelayResponse}> {
+export function getLoads(): Promise<RelayResponse> {
   return new Promise((resolve, reject) => {
     const params = {
       sortByField: 'startTime',
@@ -11,15 +11,15 @@ export function getLoads(): Promise<{loads: RelayResponse}> {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'https://relay.amazon.com/api/tours/loadboard', true);
+    xhr.open("GET", 'https://relay.amazon.com/api/tours/loadboard' + formatParams(params), true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.withCredentials = true;
 
     try {
-      xhr.send(JSON.stringify(params));
+      xhr.send();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-          resolve({ loads: JSON.parse(xhr.response) });
+          resolve(JSON.parse(xhr.response));
         }
       }
     } catch (e) {

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var exec = require('child_process').exec;
 let watch = require('gulp-watch');
 
-const cbuild = (cb) => {
+const build = (cb) => {
   console.log('Building...');
 
   exec('npx webpack', (err, stdErr, stdOut) => {
