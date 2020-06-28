@@ -1,4 +1,4 @@
-import {Storage} from "../../../Shared/Models";
+import { Storage } from "../../../Shared/Models";
 
 export const ENV_DEVELOPMENT = 'development';
 export const ENV_PRODUCTION = 'production';
@@ -17,4 +17,5 @@ export const CHROME_DATA_KEYS = [
   'trucks',
   'isLoggedIn',
   'isSearching',
+  'logs',
 ]

@@ -3,7 +3,7 @@ import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
 import { StorageService } from './utils/storage';
 import { AppData } from './models/app-data';
-import {CHROME_DATA_KEYS, ENV_DEVELOPMENT} from './constants';
+import { CHROME_DATA_KEYS, ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';
 import initialData from './mock/initial-data';
 
@@ -24,9 +24,8 @@ const App = () => {
       trucks,
       isLoggedIn,
       isSearching,
-    } = await storage.getDataObject([
-      ...CHROME_DATA_KEYS
-    ]);
+      logs,
+    } = await storage.getAll();
 
     setData({
       ...data,

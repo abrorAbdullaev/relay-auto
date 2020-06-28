@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Divider, List, Paper } from "@material-ui/core";
 import styled from "styled-components";
-import { Truck, Trucks } from "../../models/truck";
+import { Truck, Trucks } from "../../../models/truck";
 import TruckListItem from "./truck-list-item";
 import NoTrucks from "./no-trucks";
 import AddTruckButton from "./add-truck-button";

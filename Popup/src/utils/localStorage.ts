@@ -1,3 +1,5 @@
+import {CHROME_DATA_KEYS} from "../constants";
+
 export default class Storage {
   public set(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -10,7 +12,7 @@ export default class Storage {
     });
   }
 
-  public getDataObject(keys: string[]): Promise<any> {
+  public getAll(keys = CHROME_DATA_KEYS): Promise<any> {
     return new Promise((resolve) => {
       const res: any = keys.reduce(
         (acc, curr) => ({

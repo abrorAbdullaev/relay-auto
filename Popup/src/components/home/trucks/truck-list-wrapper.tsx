@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import ShowTruckListButton from "./show-truck-list-button";
 import TruckList from "./truck-list";
-import { Trucks } from "../../models/truck";
-import {addTruck, editTruck, removeTruck} from "../../actions/trucks";
+import { Trucks } from "../../../models/truck";
+import {addTruck, editTruck, removeTruck} from "../../../actions/trucks";
 import styled from "styled-components";
 
 const TruckListWrapper = (props: PropTypes) => {

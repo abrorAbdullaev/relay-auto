@@ -2,9 +2,9 @@ import React from 'react';
 import { Button } from "@material-ui/core";
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
-import { updateSearchingState } from "../actions/config";
+import { updateSearchingState } from "../../actions/config";
 
-const FetchButton = (props: PropTypes) => {
+const IoButton = (props: PropTypes) => {
   const { isSearching, onDispatch } = props;
 
   const toggleSearching = () => {
@@ -43,4 +43,4 @@ interface PropTypes {
   onDispatch: Function
 }
 
-export default FetchButton;
+export default IoButton;
