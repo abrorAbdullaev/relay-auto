@@ -9,6 +9,7 @@ export const defaultStorage: Storage = {
   refreshRate: 250,
   isLoggedIn: true,
   trucks: [
+    // Remove when testing is finished
     {
       id: 'testID',
       name: 'Test Name'
@@ -18,4 +19,5 @@ export const defaultStorage: Storage = {
       name: 'Test Name 2'
     }
   ],
+  logs: []
 }

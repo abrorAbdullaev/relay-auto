@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-import { StorageServiceInterface } from "../Shared/Services";
+import { StorageServiceInterface } from "../../../Shared/Services";
 import { defaultStorage } from "../constants";
 
 export class StorageService implements StorageServiceInterface {
-  nameSpace = 'local';
+  nameSpace: 'local' | 'sync' = 'local';
 
   get(key: string): Promise<any>  {
     return new Promise((resolve, reject) => {

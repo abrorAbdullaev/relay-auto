@@ -10,6 +10,7 @@ export const defaultStorage: Storage = {
   refreshRate: 250,
   isLoggedIn: true,
   trucks: [],
+  logs: [],
 }
 
 export const CHROME_DATA_KEYS = [
