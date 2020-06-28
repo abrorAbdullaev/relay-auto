@@ -1,4 +1,4 @@
-import { FilterInterface } from '../../Models/FitlerInterface';
+import { FilterInterface } from '../../Models/FilterInterface';
 import { StopsCountFilter } from './StopsCountFilter';
 
 export * from './StopsCountFilter';

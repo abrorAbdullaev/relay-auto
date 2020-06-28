@@ -23,11 +23,4 @@ export interface LogInterface {
    * Gets the logs from storage
    */
   getLogs(): Promise<Array<Log>>;
-
-  /**
-   * [Optional]
-   * Adds the listener to the logs object change
-   * should be implemented only if any actions are planned on logs change
-   */
-  subscribeToLogs?: (listener: Function) => Promise<boolean>;
 }

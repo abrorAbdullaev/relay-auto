@@ -1,17 +1,20 @@
 import { getLoads } from './utils';
 import { AbstractApp } from './AbstractApp';
+import { Log, LogTypes, Truck } from '../../Shared';
 
 export class App extends AbstractApp {
   async init() {
-    await this.storageService.set('isInitialized', false);
-
+    // await this.storageService.set('isInitialized', false);
     await this.storageService.initialize();
 
     this.storageService.addListener(() => this.startSearching(), 'isSearching', true);
     this.storageService.addListener(() => this.stopSearching(), 'isSearching', false);
 
-    // Test Run
-    // this.startTesting();
+    // Test
+    this.storageService.addListener(async () => {
+      const logs = await this.logsService.getLogs();
+      console.log(logs);
+    }, 'logs');
   }
 
   /**
@@ -20,14 +23,32 @@ export class App extends AbstractApp {
    * 
    * @returns Promise(<boolean>)
    */
-  private async startSearching(){
-    const refreshRate = await this.storageService.get('refreshRate');
+  private async startSearching() {
+    const trucks: Array<Truck> = await this.storageService.get('trucks');
+ 
+    if (!trucks.length) {
+      console.log('Trucks Length: ', trucks.length);
+      await this.logsService.addLog({ type: LogTypes.WARN, text: 'Cannot start the search because no trucks found!' });
+      await this.storageService.set('isSearching', false);
+      return;
+    }
 
-    this.interval = setInterval(async () => {      
-      const trucks = await this.storageService.get('trucks');
+    const refreshRate: number = await this.storageService.get('refreshRate');
+  
+    await this.logsService.addLog({ type: LogTypes.INFO, text: 
+      'Starting the search with refresh rate: ' + 
+      refreshRate + ' And trucks: ' + 
+      trucks.map((truck) => truck.name).join(', '),
+    } as Log);
+
+    this.interval = setInterval(async () => {
       const relayResponse = await getLoads();
-      const candidateLoads = await this.filtersService.collectCandidates(relayResponse.workOpportunities, trucks);
+      await this.logsService.addLog({ 
+        type: LogTypes.INFO,
+        text: 'Relay responded with ' + relayResponse.workOpportunities.length + ' loads',
+      });
 
+      const candidateLoads = await this.filtersService.collectCandidates(relayResponse.workOpportunities, trucks);
       console.log(candidateLoads);
     }, refreshRate);
   }

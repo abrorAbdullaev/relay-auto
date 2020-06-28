@@ -2,22 +2,13 @@ import { Storage } from '../../../Shared';
 
 export * from './StorageService';
 export * from './FiltersService';
+export * from './LogsService';
 
 export const defaultStorage: Storage = {
   isInitialized: true,
   isSearching: false,
   refreshRate: 250,
   isLoggedIn: true,
-  trucks: [
-    // Remove when testing is finished
-    {
-      id: 'testID',
-      name: 'Test Name'
-    },
-    {
-      id: 'testID2',
-      name: 'Test Name 2'
-    }
-  ],
+  trucks: [],
   logs: []
 }
