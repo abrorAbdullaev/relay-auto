@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 const TruckListWrapper = (props: PropTypes) => {
   const { trucks, onDispatch } = props;
-  const [ isTrucksListShown, toggleTrucksListVisibility ] = useState<boolean>(false);
 
   const onAddTruck = () => onDispatch(addTruck(""));
   const onEditTruck = (id: string, name: string) => onDispatch(editTruck(id, name));
@@ -15,22 +14,12 @@ const TruckListWrapper = (props: PropTypes) => {
 
   return (
     <Wrapper>
-      <ShowTruckListButton
-        isTrucksListShown={isTrucksListShown}
-        onTrucksListOpen={() => toggleTrucksListVisibility(!isTrucksListShown)}
+      <TruckList
+        trucks={trucks}
+        onAddTruck={onAddTruck}
+        onEditTruck={onEditTruck}
+        onRemoveTruck={onRemoveTruck}
       />
-      {
-        isTrucksListShown
-          ? (
-            <TruckList
-              trucks={trucks}
-              onAddTruck={onAddTruck}
-              onEditTruck={onEditTruck}
-              onRemoveTruck={onRemoveTruck}
-            />
-          )
-          : null
-      }
     </Wrapper>
   );
 };
