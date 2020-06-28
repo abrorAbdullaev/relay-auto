@@ -1,4 +1,4 @@
-import { FilterInterface } from "../../Models/FitlerInterface";
+import { FilterInterface } from "../../Models/FilterInterface";
 import { CandidateLoad, Load } from "../../Models";
 
 export class StopsCountFilter implements FilterInterface {
