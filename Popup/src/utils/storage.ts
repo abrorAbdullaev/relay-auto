@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { StorageServiceInterface } from "../../../Shared/Services";
 import { defaultStorage } from "../constants";
+import {Storage} from "../../../Shared/Models";
 
 export class StorageService implements StorageServiceInterface {
   nameSpace: 'local' | 'sync' = 'local';
@@ -52,22 +53,24 @@ export class StorageService implements StorageServiceInterface {
     return new Promise((resolve, reject) => {
       try {
         this.get('isInitialized').then((isInitialized) => {
-          if(!isInitialized) {
-            Promise.all(Object.entries(defaultStorage).map(([keyName, keyValue]) =>
-              this.set(`${keyName}`, defaultStorage[keyValue]))).then((allTrue) => {
-                allTrue.every(Boolean)
-                  ? resolve(true)
-                  : reject('Some values in storage are not set successfully!');
-              }
-            );
+          if(isInitialized) {
+            resolve(true);
+            return;
           }
+
+          Promise.all(Object.entries(defaultStorage).map(([keyName, keyValue]) =>
+            this.set(`${keyName}` as keyof Storage, keyValue))).then((allTrue) => {
+              allTrue.every(Boolean)
+                ? resolve(true)
+                : reject('Some values in storage are not set successfully!');
+            }
+          );
         });
       } catch (e) {
         reject(e);
       }
     });
   }
-
   getAll(): Promise<any>  {
     return new Promise((resolve, reject) => {
       try {

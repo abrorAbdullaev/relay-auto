@@ -3,6 +3,4 @@ export interface Truck {
   name: string
 }
 
-export interface Trucks {
-  [key: string]: Truck;
-}
+export type Trucks = Truck[];

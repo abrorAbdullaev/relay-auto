@@ -7,6 +7,13 @@ import { CHROME_DATA_KEYS, ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';
 import initialData from './mock/initial-data';
 
+// chrome.storage.local.clear(function() {
+//   var error = chrome.runtime.lastError;
+//   if (error) {
+//     console.error(error);
+//   }
+// });
+
 const storage: any = process.env.NODE_ENV === ENV_DEVELOPMENT
   ? new LocalStorage() // Is used to imitate Chrome Extensions Storage API during dev process
   : new StorageService();
@@ -14,11 +21,12 @@ const storage: any = process.env.NODE_ENV === ENV_DEVELOPMENT
 const App = () => {
   const [isDataLoaded, setDataLoaded] = useState<boolean>(false);
   const [data, setData] = useState<AppData>({
-    trucks: {},
+    trucks: [],
     isLoggedIn: false,
     isSearching: false,
   });
 
+  const initializeData = async () => await storage.initialize();
   const fetchAppData = async (): Promise<void> => {
     const {
       trucks,
@@ -29,7 +37,7 @@ const App = () => {
 
     setData({
       ...data,
-      trucks: trucks || {},
+      trucks: trucks || [],
       isLoggedIn,
       isSearching,
     });
@@ -44,7 +52,7 @@ const App = () => {
   }
 
   useEffect((): void => {
-    // mockData();
+    initializeData().then();
     fetchAppData().then();
   }, []);
 

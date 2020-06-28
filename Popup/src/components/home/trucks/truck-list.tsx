@@ -8,7 +8,7 @@ import AddTruckButton from "./add-truck-button";
 
 const TruckList = (props: PropTypes) => {
   const { trucks, onAddTruck, onEditTruck, onRemoveTruck } = props;
-  const mappedTrucks: Truck[] = Object.keys(trucks).map(id => trucks[id]);
+  const mappedTrucks: Truck[] = trucks;
 
   return (
     <Wrapper>
