@@ -24,8 +24,10 @@ export class App extends AbstractApp {
    * @returns Promise(<boolean>)
    */
   private async startSearching() {
+    console.log('startingSearch');
+
     const trucks: Array<Truck> = await this.storageService.get('trucks');
- 
+
     if (!trucks.length) {
       console.log('Trucks Length: ', trucks.length);
       await this.logsService.addLog({ type: LogTypes.WARN, text: 'Cannot start the search because no trucks found!' });
@@ -34,16 +36,17 @@ export class App extends AbstractApp {
     }
 
     const refreshRate: number = await this.storageService.get('refreshRate');
-  
-    await this.logsService.addLog({ type: LogTypes.INFO, text: 
-      'Starting the search with refresh rate: ' + 
-      refreshRate + ' And trucks: ' + 
-      trucks.map((truck) => truck.name).join(', '),
+
+    await this.logsService.addLog({
+      type: LogTypes.INFO, text:
+        'Starting the search with refresh rate: ' +
+        refreshRate + ' And trucks: ' +
+        trucks.map((truck) => truck.name).join(', '),
     } as Log);
 
     this.interval = setInterval(async () => {
       const relayResponse = await getLoads();
-      await this.logsService.addLog({ 
+      await this.logsService.addLog({
         type: LogTypes.INFO,
         text: 'Relay responded with ' + relayResponse.workOpportunities.length + ' loads',
       });

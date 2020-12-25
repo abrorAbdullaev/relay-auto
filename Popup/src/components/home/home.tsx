@@ -4,6 +4,7 @@ import TruckListWrapper from "./trucks/truck-list-wrapper";
 import { AppDataContext } from "../../store/app-data-context";
 import IoButton from "./io-button";
 import Box from "@material-ui/core/Box";
+import LogoutButton from './logout-button';
 
 const Home = () => {
   const { trucks, isSearching, dispatch } = useContext(AppDataContext);
@@ -15,10 +16,13 @@ const Home = () => {
         flexDirection="column"
         alignItems="center"
       >
-        <IoButton
-          isSearching={isSearching}
-          onDispatch={dispatch}
-        />
+        <Wrapper display="flex" alignItems="center">
+          <IoButton
+            isSearching={isSearching}
+            onDispatch={dispatch}
+          />
+          <LogoutButton />
+        </Wrapper>
         <TruckListWrapper
           trucks={trucks}
           onDispatch={dispatch}
