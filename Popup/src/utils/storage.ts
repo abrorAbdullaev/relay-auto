@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 import { StorageServiceInterface } from "../../../Shared/Services";
 import { defaultStorage } from "../constants";
-import {Storage} from "../../../Shared/Models";
+import { Storage } from "../../../Shared/Models";
 
 export class StorageService implements StorageServiceInterface {
   nameSpace: 'local' | 'sync' = 'local';
 
-  get(key: string): Promise<any>  {
+  get(key: string): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
         // @ts-ignore
@@ -22,7 +22,7 @@ export class StorageService implements StorageServiceInterface {
   set(key: string | string[], value: any): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage[`${this.nameSpace}`].set({[`${key}`]: value }, () => resolve(true));
+        chrome.storage[`${this.nameSpace}`].set({ [`${key}`]: value }, () => resolve(true));
       } catch (e) {
         reject(e);
       }
@@ -53,7 +53,7 @@ export class StorageService implements StorageServiceInterface {
     return new Promise((resolve, reject) => {
       try {
         this.get('isInitialized').then((isInitialized) => {
-          if(isInitialized) {
+          if (isInitialized) {
             resolve(true);
             return;
           }
@@ -64,14 +64,14 @@ export class StorageService implements StorageServiceInterface {
                 ? resolve(true)
                 : reject('Some values in storage are not set successfully!');
             }
-          );
+            );
         });
       } catch (e) {
         reject(e);
       }
     });
   }
-  getAll(): Promise<any>  {
+  getAll(): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
         // @ts-ignore

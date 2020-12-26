@@ -12,8 +12,9 @@ export class LogsService implements LogInterface {
    */
   async addLog(log: Log): Promise<boolean> {
     const logs = await this.getShiftedLogs();
-    logs.push(log);
+    const date = new Date();
 
+    logs.push({ type: log.type, text: `${date.toISOString()} ${log.text}` });
     return this.storageService.set('logs', logs);
   }
 

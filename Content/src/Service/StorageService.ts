@@ -9,7 +9,7 @@ export class StorageService implements StorageServiceInterface {
    * 
    * @param key name of the param
    */
-  get(key: keyof Storage): Promise<any>  {
+  get(key: keyof Storage): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage[this.nameSpace].get([`${key}`], (result) => {
@@ -33,7 +33,7 @@ export class StorageService implements StorageServiceInterface {
   set(key: keyof Storage, value: any): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage[this.nameSpace].set({[`${key}`]: value }, () => resolve(true));
+        chrome.storage[this.nameSpace].set({ [`${key}`]: value }, () => resolve(true));
       } catch (e) {
         reject(e);
       }
@@ -64,7 +64,7 @@ export class StorageService implements StorageServiceInterface {
     return new Promise((resolve, reject) => {
       try {
         this.get('isInitialized').then((isInitialized) => {
-          if(isInitialized) {
+          if (isInitialized) {
             resolve(true);
             return;
           }
@@ -75,7 +75,7 @@ export class StorageService implements StorageServiceInterface {
                 ? resolve(true)
                 : reject('Some values in storage are not set successfully!');
             }
-          );
+            );
         });
       } catch (e) {
         reject(e);

@@ -7,7 +7,7 @@ export * from './LogsService';
 export const defaultStorage: Storage = {
   isInitialized: true,
   isSearching: false,
-  refreshRate: 250,
+  refreshRate: 1000,
   isLoggedIn: false,
   trucks: [],
   logs: []

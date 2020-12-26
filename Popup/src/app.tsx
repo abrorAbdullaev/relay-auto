@@ -3,7 +3,7 @@ import AppDataProvider from './components/app-data-provider';
 import LocalStorage from './utils/localStorage';
 import { StorageService } from './utils/storage';
 import { AppData } from './models/app-data';
-import { CHROME_DATA_KEYS, ENV_DEVELOPMENT } from './constants';
+import { ENV_DEVELOPMENT } from './constants';
 import AppContent from './components/app-content';
 import initialData from './mock/initial-data';
 

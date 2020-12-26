@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppDataContext } from "../store/app-data-context";
 import Login from "./login/login";
 import { AppBar, Tab, Tabs } from "@material-ui/core";
@@ -21,38 +21,38 @@ const AppContent = () => {
 
   return (
     isLoggedIn ? (
-        <div>
-          <AppBar position="static" color="default">
-            <Tabs
-              value={value}
-              onChange={handleTabChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              aria-label="full width tabs example"
-            >
-              <Tab label="Home" />
-              <Tab label="Logs" />
-            </Tabs>
-          </AppBar>
-          <SwipeableViews
-            axis="x"
-            index={value}
-            onChangeIndex={handleTabIndexChange}
+      <div>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleTabChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="full width tabs example"
           >
-            <TabPanel value={value} index={0}>
-              <Home />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <Logs />
-            </TabPanel>
-          </SwipeableViews>
-        </div>
+            <Tab label="Home" />
+            <Tab label="Logs" />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis="x"
+          index={value}
+          onChangeIndex={handleTabIndexChange}
+        >
+          <TabPanel value={value} index={0}>
+            <Home />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Logs />
+          </TabPanel>
+        </SwipeableViews>
+      </div>
     ) : (
-      <Login
-        onDispatch={dispatch}
-      />
-    )
+        <Login
+          onDispatch={dispatch}
+        />
+      )
   );
 };
 

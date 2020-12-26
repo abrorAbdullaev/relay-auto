@@ -3,7 +3,7 @@ import { Logs } from '../models/log';
 
 export const logsReducer = (state: Logs = [], action: any) => {
   switch (action.type) {
-    case ACTION_TYPE.UPDATE_LOGIN_STATE: {
+    case ACTION_TYPE.UPDATE_LOGS: {
       return action.state
     }
     default:
