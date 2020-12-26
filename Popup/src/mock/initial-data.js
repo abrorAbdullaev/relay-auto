@@ -1,3 +1,5 @@
+import { LogTypes } from '../models/log';
+
 export default {
   trucks: [
     {
@@ -10,5 +12,19 @@ export default {
     }
   ],
   isLoggedIn: true,
-  isSearching: false
+  isSearching: false,
+  logs: [
+    {
+      type: LogTypes.INFO,
+      text: 'Test Text'
+    },
+    {
+      type: LogTypes.WARN,
+      text: 'Test Text'
+    },
+    {
+      type: LogTypes.ERROR,
+      text: 'Test Text'
+    }
+  ],
 };

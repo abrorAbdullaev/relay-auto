@@ -24,6 +24,7 @@ const App = () => {
     trucks: [],
     isLoggedIn: false,
     isSearching: false,
+    logs: [],
   });
 
   const initializeData = async () => await storage.initialize();
@@ -40,6 +41,7 @@ const App = () => {
       trucks: trucks || [],
       isLoggedIn,
       isSearching,
+      logs,
     });
 
     setDataLoaded(true);
@@ -49,7 +51,9 @@ const App = () => {
     storage.set('trucks', initialData.trucks);
     storage.set('isLoggedIn', initialData.isLoggedIn);
     storage.set('isSearching', initialData.isSearching);
+    storage.set('logs', initialData.logs);
   }
+  // mockData(); // Use for testing on development
 
   useEffect((): void => {
     initializeData().then();
@@ -60,7 +64,7 @@ const App = () => {
     isDataLoaded
       ? (
         <AppDataProvider storage={storage} data={data}>
-          <AppContent/>
+          <AppContent />
         </AppDataProvider>
       ) : <span>Loading</span>
   );

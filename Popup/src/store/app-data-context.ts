@@ -6,4 +6,5 @@ export const AppDataContext = React.createContext<AppData & { dispatch: any }>({
   isLoggedIn: false,
   isSearching: false,
   dispatch: undefined as any,
+  logs: [],
 });

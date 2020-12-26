@@ -9,12 +9,6 @@ export class App extends AbstractApp {
 
     this.storageService.addListener(() => this.startSearching(), 'isSearching', true);
     this.storageService.addListener(() => this.stopSearching(), 'isSearching', false);
-
-    // Test
-    this.storageService.addListener(async () => {
-      const logs = await this.logsService.getLogs();
-      console.log(logs);
-    }, 'logs');
   }
 
   /**
@@ -24,12 +18,9 @@ export class App extends AbstractApp {
    * @returns Promise(<boolean>)
    */
   private async startSearching() {
-    console.log('startingSearch');
-
     const trucks: Array<Truck> = await this.storageService.get('trucks');
 
     if (!trucks.length) {
-      console.log('Trucks Length: ', trucks.length);
       await this.logsService.addLog({ type: LogTypes.WARN, text: 'Cannot start the search because no trucks found!' });
       await this.storageService.set('isSearching', false);
       return;

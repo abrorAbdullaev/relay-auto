@@ -4,7 +4,7 @@ export class LogsService implements LogInterface {
   private storageService: StorageServiceInterface;
 
   constructor(storageService: StorageServiceInterface) {
-    this.storageService = storageService; 
+    this.storageService = storageService;
   }
 
   /**
